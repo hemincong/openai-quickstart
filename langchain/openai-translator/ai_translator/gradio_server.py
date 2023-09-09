@@ -8,11 +8,11 @@ from utils import ArgumentParser, LOG
 from translator import PDFTranslator, TranslationConfig
 
 
-def translation(input_file, source_language, target_language):
-    LOG.debug(f"[翻译任务]\n源文件: {input_file.name}\n源语言: {source_language}\n目标语言: {target_language}")
+def translation(input_file, source_language, target_language, language_style):
+    LOG.debug(f"[翻译任务]\n源文件: {input_file.name}\n源语言: {source_language}\n目标语言: {target_language}语言风格：{language_style}")
 
     output_file_path = Translator.translate_pdf(
-        input_file.name, source_language=source_language, target_language=target_language)
+        input_file.name, source_language=source_language, target_language=target_language, language_style=language_style)
 
     return output_file_path
 
@@ -24,7 +24,10 @@ def launch_gradio():
         inputs=[
             gr.File(label="上传PDF文件"),
             gr.Textbox(label="源语言（默认：英文）", placeholder="English", value="English"),
-            gr.Textbox(label="目标语言（默认：中文）", placeholder="Chinese", value="Chinese")
+            gr.Textbox(label="目标语言（默认：中文）", placeholder="Chinese", value="Chinese"),
+            gr.Dropdown(
+                ["novel", "news", "writer"], label="翻译风格", info="翻译风格"
+            ),
         ],
         outputs=[
             gr.File(label="下载翻译文件")
