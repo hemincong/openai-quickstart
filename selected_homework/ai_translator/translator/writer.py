@@ -15,12 +15,15 @@ class Writer:
         pass
 
     def save_translated_book(self, book: Book, output_file_path: str = None, file_format: str = "PDF"):
+        p = output_file_path
+
         if file_format.lower() == "pdf":
-            self._save_translated_book_pdf(book, output_file_path)
+            p = self._save_translated_book_pdf(book, output_file_path)
         elif file_format.lower() == "markdown":
-            self._save_translated_book_markdown(book, output_file_path)
+            p = self._save_translated_book_markdown(book, output_file_path)
         else:
             raise ValueError(f"Unsupported file format: {file_format}")
+        return p
 
     def _save_translated_book_pdf(self, book: Book, output_file_path: str = None):
         if output_file_path is None:
@@ -75,6 +78,7 @@ class Writer:
         # Save the translated book as a new PDF file
         doc.build(story)
         LOG.info(f"翻译完成: {output_file_path}")
+        return output_file_path
 
     def _save_translated_book_markdown(self, book: Book, output_file_path: str = None):
         if output_file_path is None:
@@ -106,3 +110,4 @@ class Writer:
                     output_file.write('---\n\n')
 
         LOG.info(f"翻译完成: {output_file_path}")
+        return output_file_path
