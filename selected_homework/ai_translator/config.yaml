@@ -1,0 +1,13 @@
+OpenAIModel:
+  model: "gpt-3.5-turbo"
+  api_key: "your_openai_api_key"
+
+GLMModel:
+  model_url: "http://127.0.0.1:8000/v1"
+  timeout: 300
+
+file_format: "markdown"
+input_file: "tests/test.pdf"
+output_file_format: "markdown"
+source_language: "English"
+target_language: "Chinese"
